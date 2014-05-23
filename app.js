@@ -30,13 +30,12 @@ everyauth.facebook
     })
     .findOrCreateUser( function (session, accessToken, accessTokExtra, fbUserMetadata) {
 
-        var promise = this.Promise();
+
         UserModel.findOne({facebook_id: fbUserMetadata.id},function(err, user) {
-            if (err) return promise.fulfill([err]);
+
+            /*if (err) return promise.fulfill([err]);
 
             if(user) {
-
-                // user found, life is good
                 promise.fulfill(user);
 
             } else {
@@ -56,14 +55,14 @@ everyauth.facebook
                 User.save(function(err,user) {
                     if (err) return promise.fulfill([err]);
                     promise.fulfill(user);
-                });
+                });*/
 
-            }
+            //}
 
 
         });
 
-        return promise;
+        //return promise;
     })
     .redirectPath('/callback');
 
@@ -125,9 +124,9 @@ app.get("/", function(request, response) {
   return response.render("index");
 });
 
-app.get("/callback", function(request, response) {
-  return response.redirect("/");
-});
+//app.get("/callback", function(request, response) {
+  //return response.redirect("/");
+//});
 
 app.get("/auth/login", function(request, response) {
   return response.redirect("/auth/facebook");
