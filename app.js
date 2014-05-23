@@ -16,6 +16,57 @@ _         = require("underscore");
 everyauth = require('everyauth');
 
 
+everyauth.everymodule.findUserById(function(userId,callback) {
+    UserModel.findOne({facebook_id: userId},function(err, user) {
+        callback(user, err);
+    });
+});
+everyauth.facebook
+    .appId('592158694213808')
+    .appSecret('e981f191dee36aaa1c00879b84d60978')
+    .scope('email,user_location,user_photos,publish_actions')
+    .handleAuthCallbackError( function (req, res) {
+        res.send('Error occured');
+    })
+    .findOrCreateUser( function (session, accessToken, accessTokExtra, fbUserMetadata) {
+
+        var promise = this.Promise();
+        UserModel.findOne({facebook_id: fbUserMetadata.id},function(err, user) {
+            if (err) return promise.fulfill([err]);
+
+            if(user) {
+
+                // user found, life is good
+                promise.fulfill(user);
+
+            } else {
+
+                // create new user
+                var User = new UserModel({
+                    name: fbUserMetadata.name,
+                    firstname: fbUserMetadata.first_name,
+                    lastname: fbUserMetadata.last_name,
+                    email: fbUserMetadata.email,
+                    username: fbUserMetadata.username,
+                    gender: fbUserMetadata.gender,
+                    facebook_id: fbUserMetadata.id,
+                    facebook: fbUserMetadata
+                });
+
+                User.save(function(err,user) {
+                    if (err) return promise.fulfill([err]);
+                    promise.fulfill(user);
+                });
+
+            }
+
+
+        });
+
+        return promise;
+    })
+    .redirectPath('/');
+
 CartoDB = require('cartodb');
 Config  = require("./lib/config").Config;
 app = express();
@@ -35,6 +86,7 @@ app.use(require('errorhandler')())
 app.use(require('method-override')())
 app.use(cookieParser("F;;v,m-{-HC6YqTR}T=;"));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(everyauth.middleware(app));
 
 // CartoDB configuration
 cartoDB = new CartoDB({
@@ -48,13 +100,6 @@ cartoDB.connect();
 cartoDB.on("connect", function() {
   return console.log("connected");
 });
-
-getRandomID = function(length) {
-  if (length == null) {
-    length = 10;
-  }
-  return crypto.randomBytes(length).toString('hex');
-};
 
 extend = function(origin, add) {
   var i, keys;
@@ -74,6 +119,14 @@ extend = function(origin, add) {
 
 app.get("/", function(request, response) {
   return response.render("index");
+});
+
+app.get("/redirect", function(request, response) {
+  return response.redirect("/");
+});
+
+app.get("/login", function(request, response) {
+  return response.redirect("/auth/facebook");
 });
 
 port = process.env.PORT || Config.port;
