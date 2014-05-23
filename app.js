@@ -15,6 +15,57 @@ var cookieParser = require('cookie-parser');
 _         = require("underscore");
 everyauth = require('everyauth');
 
+everyauth.everymodule.findUserById(function(userId,callback) {
+    UserModel.findOne({facebook_id: userId},function(err, user) {
+        callback(user, err);
+    });
+});
+
+everyauth.facebook
+    .appId(process.env.FACEBOOK_APP_ID)
+    .appSecret(process.env.FACEBOOK_APP_SECRET)
+    .scope('email,user_location,user_photos,publish_actions')
+    .handleAuthCallbackError( function (req, res) {
+        res.send('Error occured');
+    })
+    .findOrCreateUser( function (session, accessToken, accessTokExtra, fbUserMetadata) {
+
+        var promise = this.Promise();
+        UserModel.findOne({facebook_id: fbUserMetadata.id},function(err, user) {
+            if (err) return promise.fulfill([err]);
+
+            if(user) {
+
+                // user found, life is good
+                promise.fulfill(user);
+
+            } else {
+
+                // create new user
+                var User = new UserModel({
+                    name: fbUserMetadata.name,
+                    firstname: fbUserMetadata.first_name,
+                    lastname: fbUserMetadata.last_name,
+                    email: fbUserMetadata.email,
+                    username: fbUserMetadata.username,
+                    gender: fbUserMetadata.gender,
+                    facebook_id: fbUserMetadata.id,
+                    facebook: fbUserMetadata
+                });
+
+                User.save(function(err,user) {
+                    if (err) return promise.fulfill([err]);
+                    promise.fulfill(user);
+                });
+
+            }
+
+
+        });
+
+        return promise;
+    })
+    .redirectPath('/callback');
 
 CartoDB = require('cartodb');
 Config  = require("./lib/config").Config;
@@ -35,6 +86,7 @@ app.use(require('errorhandler')())
 app.use(require('method-override')())
 app.use(cookieParser("F;;v,m-{-HC6YqTR}T=;"));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(everyauth.middleware(app));
 
 // CartoDB configuration
 cartoDB = new CartoDB({
@@ -48,13 +100,6 @@ cartoDB.connect();
 cartoDB.on("connect", function() {
   return console.log("connected");
 });
-
-getRandomID = function(length) {
-  if (length == null) {
-    length = 10;
-  }
-  return crypto.randomBytes(length).toString('hex');
-};
 
 extend = function(origin, add) {
   var i, keys;
@@ -73,7 +118,19 @@ extend = function(origin, add) {
 // ==========================================
 
 app.get("/", function(request, response) {
+
+    console.log(process.env.FACEBOOK_APP_ID)
+    console.log(process.env.FACEBOOK_APP_SECRET)
+
   return response.render("index");
+});
+
+app.get("/callback", function(request, response) {
+  return response.redirect("/");
+});
+
+app.get("/auth/login", function(request, response) {
+  return response.redirect("/auth/facebook");
 });
 
 port = process.env.PORT || Config.port;
