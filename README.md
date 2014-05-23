@@ -3,7 +3,7 @@ dynyf
 
 Dow you know your friends in fb
 
-The only personal information we collect on this site is you and your friends' name, location and email address. All information you provide is kept in strict confidence and will never be sold or given to a third party for any reason.
+DYNYF doesn't collect any personal information from our users. All of the data is only used for visualization purposes and none of it will be saved or sent to any third party for any reason.  
 
 Friend's key data: 
 - Full name
