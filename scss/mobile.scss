@@ -1,0 +1,202 @@
+@import "media";
+@import "helpers";
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+
+  body {
+
+    footer.centered {
+      width: 100%;
+      .inner { font-size: 1em; width: 100%; margin:0; line-height: normal; }
+      .stats {
+        margin: 10px 0 0 0;
+        font-size: 1em;
+        width: 100%;
+        line-height: normal;
+      }
+    }
+
+    .books {
+
+      ul {
+
+        li {
+
+          font-size: 1.2em;
+          line-height: normal;
+
+          .count { display: none; }
+
+          a.mobile { width: auto; }
+
+          &.synced a.mobile.remove { display:block!important; }
+          &.synced a.mobile.sync   { display: none; }
+
+          .content {
+            clear:both;
+            overflow:hidden;
+          }
+
+          .content p {
+            width:350px;
+            float:left;
+          }
+
+          a.mobile.remove {
+            color:$cRed;
+            font-weight:bold;
+            text-decoration: underline;
+            display:none;
+            float:right;
+            line-height:bold;
+            font-size: 1em;
+            background:none;
+          }
+
+          a.mobile.sync {
+            font-weight:bold;
+            background:none;
+            color:$cBlue;
+            text-decoration: underline;
+            display:block;
+            float:right;
+            line-height:normal;
+            font-size: 1em;
+          }
+
+          .toggle { display: none!important; }
+
+          &.title {
+
+            .more, .less, .info { display:none;}
+            .options { display:block; }
+            .options a { font-size:1.1em; }
+            .content {
+              width:100%;
+              margin:0;
+            }
+          }
+
+          .status {
+            @include size(5px, 100%);
+          }
+
+          .content {
+            width: auto;
+            padding: 30px;
+            border-bottom: 1px solid #ccc;
+          }
+
+          .toggle {
+            display:none;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media only screen and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)
+{
+
+  body {
+
+    padding: 0!important;
+    margin:0;
+    background:#fff!Important;
+
+    .help { display: none; }
+
+    footer.centered {
+      width: 100%;
+      .inner { font-size: 3em; width: 100%; margin:0; line-height: normal; }
+      .stats {
+        margin: 10px 0 0 0;
+        font-size: 3em;
+        width: 100%;
+        line-height: normal;
+      }
+    }
+
+    .books {
+      margin:0;
+      width: 100%;
+
+      ul {
+        margin: 0 0 30px 0;
+
+        li {
+
+          font-size: 3em;
+          line-height: normal;
+
+          .count { display: none; }
+
+          &.synced a.mobile.remove { display:block!important; }
+          &.synced a.mobile.sync   { display: none; }
+
+          .content {
+            clear:both;
+            overflow:hidden;
+          }
+
+          .content p {
+            float:left;
+            width: 750px;
+          }
+          a.mobile.remove {
+            color:$cRed;
+            font-weight:bold;
+            text-decoration: underline;
+            display:none;
+            float:right;
+            line-height:bold;
+            font-size: 1em;
+            width: auto;
+            background:none;
+          }
+
+          a.mobile.sync {
+            font-weight:bold;
+            background:none;
+            color:$cBlue;
+            text-decoration: underline;
+            display:block;
+            float:right;
+            line-height:normal;
+            font-size: 1em;
+            width: auto;
+          }
+
+          .toggle { display: none!important; }
+
+          &.title {
+
+            .more, .less, .info { display:none;}
+            .options { display:block; }
+            .content {
+              width:100%;
+              margin:0;
+            }
+          }
+
+          .status {
+            @include size(10px, 100%);
+          }
+
+          .content {
+            width: auto;
+            padding: 30px;
+            border-bottom: 1px solid #ccc;
+
+          }
+
+          .toggle {
+            display:none;
+          }
+        }
+      }
+    }
+  }
+}

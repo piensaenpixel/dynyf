@@ -1,0 +1,13 @@
+<h3><%= name %></h3>
+
+<% if (type == "cartodb") { %>
+
+  <p><%= address %></p>
+  <p><%= distance %>m</p>
+
+<% } else { %>
+
+  <p><%= location.address %></p>
+  <p><%= location.distance %>m</p>
+
+<% } %>
