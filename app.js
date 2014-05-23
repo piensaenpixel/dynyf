@@ -15,37 +15,9 @@ var cookieParser = require('cookie-parser');
 _         = require("underscore");
 everyauth = require('everyauth');
 
-everyauth.everymodule.findUserById(function(userId,callback) {
-    UserModel.findOne({facebook_id: userId},function(err, user) {
-        callback(user, err);
-    });
-});
-
-everyauth.everymodule.findUserById(function(objId,callback) {  
-    UserModel.findById(objId, function(err, user){  
-     callback(null, user);  
-   });  
- });  
 
 var findOrCreateFBUser = function(session, accessToken, accessTokExtra, fbUserMetadata){  
-  var promise = this.Promise();  
-  UserModel.findOne({facebook_id: fbUserMetadata.id},function(err, user) {  
-    if (err) return promise.fulfill([err]);  
-    if(user) {  
-      promise.fulfill(user);  
-    } else {  
-      var User = new UserModel({  
-        name: fbUserMetadata.name,  
-        facebook_id: fbUserMetadata.id,  
-        facebook: fbUserMetadata  
-      });  
-      User.save(function(err,user) {  
-        if (err) return promise.fulfill([err]);  
-        promise.fulfill(user);  
-      });  
-    }  
-  });  
-  return promise;  
+  return true
 }  
 
 everyauth.facebook
@@ -55,8 +27,9 @@ everyauth.facebook
 .handleAuthCallbackError( function (req, res) {
   res.send('Error occured');
 })
-.findOrCreateUser(findOrCreateFBUser)  
-.redirectPath('/');  
+.findOrCreateUser(findOrCreateFBUser)
+.redirectPath('/callback');
+
 
 CartoDB = require('cartodb');
 Config  = require("./lib/config").Config;
@@ -76,8 +49,12 @@ app.use(bodyParser());
 app.use(require('errorhandler')())
 app.use(require('method-override')())
 app.use(cookieParser("F;;v,m-{-HC6YqTR}T=;"));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'F;;v,m-{-HC6YqTR}T=;',
+  store: store
+}));
 app.use(everyauth.middleware(app));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // CartoDB configuration
 cartoDB = new CartoDB({
