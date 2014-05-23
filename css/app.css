@@ -1,0 +1,39 @@
+.home-inner {
+  background: url(../img/home.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+  .home-inner h1 {
+    font: 30px 'chunkfive_exregular';
+    margin-bottom: 60px;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, .2);
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .home-inner .button {
+    display: inline-block;
+
+    
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, .2);
+
+  }
+    .home-inner .button a {
+      color: #fff;
+      font: 14px 'Helvetica Neu', Helvetica, Arial;
+      display: block;
+      padding: 14px 40px;
+      text-decoration: none;
+      background: #4c66a4;
+      -webkit-transition: background .2s;
+      transition: background .2s;
+      border-radius: 4px;
+    }
+    .home-inner .button a:hover {
+      background: #4e659b;
+    }

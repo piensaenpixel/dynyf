@@ -1,0 +1,42 @@
+.h-tcenter {
+	text-align: center;
+}
+.h-tleft {
+	text-align: left;
+}
+.h-tright {
+	text-align: right;
+}
+
+.h-left {
+	float: left;
+}
+.h-right {
+	float: right;
+}
+.h-malign { vertical-align: middle; }
+.h-talign { vertical-align: top; }
+.h-balign { vertical-align: bottom; }
+
+.h-iblock { display: inline-block; }
+
+
+.h-valign:before {
+	content:"";
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: -3px;
+	height: 100%;
+}
+
+
+.icon { 
+	background-image: url(../img/sprite.png);
+	background-repeat: no-repeat;
+	display: inline-block;
+	vertical-align: middle;
+}
+	.i-xs { width: 12px; height: 12px; }
+
+	.i-fb-white { background-position: -8px -8px;}
+
