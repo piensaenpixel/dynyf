@@ -21,50 +21,42 @@ everyauth.everymodule.findUserById(function(userId,callback) {
     });
 });
 
+everyauth.everymodule.findUserById(function(objId,callback) {  
+    UserModel.findById(objId, function(err, user){  
+     callback(null, user);  
+   });  
+ });  
+
+var findOrCreateFBUser = function(session, accessToken, accessTokExtra, fbUserMetadata){  
+  var promise = this.Promise();  
+  UserModel.findOne({facebook_id: fbUserMetadata.id},function(err, user) {  
+    if (err) return promise.fulfill([err]);  
+    if(user) {  
+      promise.fulfill(user);  
+    } else {  
+      var User = new UserModel({  
+        name: fbUserMetadata.name,  
+        facebook_id: fbUserMetadata.id,  
+        facebook: fbUserMetadata  
+      });  
+      User.save(function(err,user) {  
+        if (err) return promise.fulfill([err]);  
+        promise.fulfill(user);  
+      });  
+    }  
+  });  
+  return promise;  
+}  
+
 everyauth.facebook
-    .appId(process.env.FACEBOOK_APP_ID)
-    .appSecret(process.env.FACEBOOK_APP_SECRET)
-    .scope('email,user_location,user_photos,publish_actions')
-    .handleAuthCallbackError( function (req, res) {
-        res.send('Error occured');
-    })
-    .findOrCreateUser( function (session, accessToken, accessTokExtra, fbUserMetadata) {
-
-
-        UserModel.findOne({facebook_id: fbUserMetadata.id},function(err, user) {
-
-            /*if (err) return promise.fulfill([err]);
-
-            if(user) {
-                promise.fulfill(user);
-
-            } else {
-
-                // create new user
-                var User = new UserModel({
-                    name: fbUserMetadata.name,
-                    firstname: fbUserMetadata.first_name,
-                    lastname: fbUserMetadata.last_name,
-                    email: fbUserMetadata.email,
-                    username: fbUserMetadata.username,
-                    gender: fbUserMetadata.gender,
-                    facebook_id: fbUserMetadata.id,
-                    facebook: fbUserMetadata
-                });
-
-                User.save(function(err,user) {
-                    if (err) return promise.fulfill([err]);
-                    promise.fulfill(user);
-                });*/
-
-            //}
-
-
-        });
-
-        //return promise;
-    })
-    .redirectPath('/callback');
+.appId(process.env.FACEBOOK_APP_ID)
+.appSecret(process.env.FACEBOOK_APP_SECRET)
+.scope('email,user_location,user_photos,publish_actions')
+.handleAuthCallbackError( function (req, res) {
+  res.send('Error occured');
+})
+.findOrCreateUser(findOrCreateFBUser)  
+.redirectPath('/');  
 
 CartoDB = require('cartodb');
 Config  = require("./lib/config").Config;
