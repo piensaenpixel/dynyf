@@ -164,6 +164,12 @@ app.get("/", function(request, response) {
   return response.render("index");
 });
 
+app.get("/visualization", function(request, response) {
+
+  return response.render("page");
+});
+
+
 app.get("/callback", function(request, response) {
   return response.redirect("/");
 });
