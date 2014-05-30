@@ -7,6 +7,9 @@ a {
     text-decoration: underline;
   }
 }
+.h-pa {
+  position: absolute;
+}
 
 .h-tcenter {
   text-align: center;
@@ -141,4 +144,40 @@ a {
 
 .slide {
   height: 100%;
+}
+
+.navigation {
+  right: 40px;
+  top: 150px;
+  z-index: 3; 
+  > li {
+    margin-bottom: 20px;
+    a {
+      display: block;
+      width: 12px;
+      height: 10px;
+      background: #fff;
+      border-radius: 50%;
+      text-indent: -9000px;
+      padding-top: 2px;
+      span {
+        display: block;
+        width: 8px;
+        height: 8px;
+        background: #666;
+        margin: 0 auto;
+        border-radius: 50%;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0;
+        transition: all .3s;
+        -webkit-transition: all .3s;
+      }
+      &:hover span {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
 }
