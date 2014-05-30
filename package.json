@@ -26,7 +26,8 @@
     "expect.js": "latest",
     "zombie": "latest",
     "cartodb": "latest",
-    "everyauth": "latest"
+    "passport": "latest",
+    "passport-facebook": "latest"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
