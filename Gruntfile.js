@@ -7,6 +7,7 @@ module.exports = function(grunt) {
         concat: {
           dist: {
             src: [
+              'public/js/vendor/d3.v3.js',
               'public/js/vendor/jquery.min.js',
               'public/js/vendor/underscore-min.js',
               'public/js/vendor/backbone-min.js',

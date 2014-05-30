@@ -1,1 +1,54 @@
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1;text-rendering:optimizeLegibility;-webkit-text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;height:100%}html{min-height:100%}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}@font-face{font-family:'chunkfive_exregular';src:url("/fonts/chunkfive_ex-webfont.eot");src:url("/fonts/chunkfive_ex-webfont.eot?#iefix") format("embedded-opentype"),url("/fonts/chunkfive_ex-webfont.woff") format("woff"),url("/fonts/chunkfive_ex-webfont.ttf") format("truetype"),url("/fonts/chunkfive_ex-webfont.svg#chunkfive_exregular") format("svg");font-weight:normal;font-style:normal}a{text-decoration:none}a:hover{text-decoration:underline}.h-pa{position:absolute}.h-tcenter{text-align:center}.h-tleft{text-align:left}.h-tright{text-align:right}.h-left{float:left}.h-right{float:right}.h-malign{vertical-align:middle}.h-talign{vertical-align:top}.h-balign{vertical-align:bottom}.h-iblock{display:inline-block}.h-valign:before{content:"";display:inline-block;vertical-align:middle;margin-left:-3px;height:100%}.icon{background-image:url(/img/sprite.png);background-repeat:no-repeat;display:inline-block;vertical-align:middle}.i-xs{width:12px;height:12px}.i-fb-white{background-position:-8px -8px}.home-inner{background:url(/img/home.jpg);background-repeat:no-repeat;background-size:cover;position:absolute;left:0;right:0;bottom:0;top:0}.home-inner h1{font:30px 'chunkfive_exregular';margin-bottom:30px;text-shadow:1px 1px 0px rgba(0,0,0,0.2);color:#fff;text-transform:uppercase}.home-inner .button{display:inline-block;margin-bottom:30px;box-shadow:1px 1px 0px rgba(0,0,0,0.2);border-radius:4px}.home-inner .button a{color:#fff;font:14px 'Helvetica Neu', Helvetica, Arial;display:block;padding:14px 40px;text-decoration:none;background:#4c66a4;-webkit-transition:background .2s;transition:background .2s;border-radius:4px}.home-inner .button a:hover{background:#4e659b}.disclaimer{max-width:450px;font:13px 'Helvetica Neu', Helvetica, Arial;color:rgba(255,255,255,0.8);text-align:center;margin:0px auto}.visualization{background:#000;font-family:"Helvetica Neu", Helvetica;font-size:14px}.visualization strong{font-weight:800}.header{background:#384047;position:fixed;width:100%;padding:10px 0;z-index:2}.header h1{font:14px 'chunkfive_exregular';color:rgba(255,255,255,0.8)}.header .header-info{color:#fff}.header .header-info p{margin-left:8px}.header .header-info a{color:rgba(255,255,255,0.2);padding-left:8px;border-left:1px solid rgba(255,255,255,0.2)}.inner{max-width:1000px;margin:0px auto;width:auto;overflow:hidden}.slide{height:100%}.navigation{right:40px;top:150px;z-index:3}.navigation>li{margin-bottom:20px}.navigation>li a{display:block;width:12px;height:10px;background:#fff;border-radius:50%;text-indent:-9000px;padding-top:2px}.navigation>li a span{display:block;width:8px;height:8px;background:#666;margin:0 auto;border-radius:50%;-webkit-transform:scale(0);transform:scale(0);opacity:0;transition:all .3s;-webkit-transition:all .3s}.navigation>li a:hover span{-webkit-transform:scale(1);transform:scale(1);opacity:1}
+/*
+Syntax error: Invalid CSS after "}": expected selector or at-rule, was "<<<<<<< HEAD"
+        on line 149 of /Users/Garcia/Desktop/dynyf/scss/style.scss
+
+Backtrace:
+/Users/Garcia/Desktop/dynyf/scss/style.scss:149
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/scss/parser.rb:1147:in `expected'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/scss/parser.rb:1085:in `expected'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/scss/parser.rb:28:in `parse'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/engine.rb:342:in `_to_tree'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/engine.rb:315:in `_render'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/engine.rb:262:in `render'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/compiler.rb:139:in `block (2 levels) in compile'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/compiler.rb:126:in `timed'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/compiler.rb:138:in `block in compile'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/logger.rb:45:in `red'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/compiler.rb:137:in `compile'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/compiler.rb:118:in `compile_if_required'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/compiler.rb:103:in `block (2 levels) in run'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/compiler.rb:101:in `each'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/compiler.rb:101:in `block in run'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/compiler.rb:126:in `timed'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/compiler.rb:100:in `run'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/commands/watch_project.rb:147:in `recompile'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/path.rb:73:in `call'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/path.rb:73:in `run_callback'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/path.rb:55:in `callback_action'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/path.rb:35:in `update'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/state/directory.rb:39:in `block in modified'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/state/directory.rb:37:in `each'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/state/directory.rb:37:in `modified'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/state/directory.rb:18:in `refresh'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:17:in `block (2 levels) in run'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:17:in `each'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:17:in `block in run'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:15:in `loop'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:15:in `run'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm/monitor.rb:26:in `run'
+/Library/Ruby/Gems/2.0.0/gems/fssm-0.2.10/lib/fssm.rb:70:in `monitor'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/commands/watch_project.rb:87:in `perform'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/commands/base.rb:18:in `execute'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/commands/project_base.rb:19:in `execute'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/lib/compass/exec/sub_command_ui.rb:15:in `run!'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/bin/compass:30:in `block in <top (required)>'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/bin/compass:44:in `call'
+/Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/bin/compass:44:in `<top (required)>'
+/usr/bin/compass:23:in `load'
+/usr/bin/compass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Invalid CSS after \"}\": expected selector or at-rule, was \"<<<<<<< HEAD\"\A         on line 149 of /Users/Garcia/Desktop/dynyf/scss/style.scss"; }

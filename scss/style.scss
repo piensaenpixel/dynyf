@@ -146,6 +146,7 @@ a {
   height: 100%;
 }
 
+<<<<<<< HEAD
 .navigation {
   right: 40px;
   top: 150px;
@@ -180,4 +181,31 @@ a {
       }
     }
   }
+
+#map {
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+svg {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  @include opacity(.8);
+  pointer-events:none;
+}
+
+.marker {
+  position:absolute;
+  @include opacity(.8);
+}
+
+circle {
+  fill: #109DCD;
+  fill-opacity:.8;
+  opacity:.8;
+  pointer-events:all;
 }

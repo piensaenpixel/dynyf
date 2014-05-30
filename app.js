@@ -8,6 +8,7 @@ path       = require('path');
 crypto     = require('crypto');
 sanitize   = require('validator').sanitize;
 session    = require('express-session');
+async      = require('async');
 
 var morgan       = require('morgan')
 var bodyParser   = require('body-parser');
@@ -68,10 +69,11 @@ app.use(session({
   app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+console.log(process.env.CARTODB_USER)
 // CartoDB configuration
 cartoDB = new CartoDB({
-  user: Config.cartoDB_USER,
-  api_key: Config.cartoDB_API_KEY
+  user: process.env.CARTODB_USER,
+  api_key: process.env.CARTODB_API_KEY,
 });
 
 cartoDBLog = require("fs").createWriteStream(__dirname + "/responses.log");
@@ -93,6 +95,16 @@ extend = function(origin, add) {
   }
   return origin;
 };
+
+
+var getLatLng = function(callback) {
+  var query;
+  query = "SELECT ST_X(the_geom) AS longitude, ST_Y(the_geom) AS latitude FROM {table} LIMIT 1";
+  return cartoDB.query(query, {
+    table: "global_cities_points"
+  }, callback);
+};
+
 
 // ROUTES
 // ==========================================
@@ -127,13 +139,11 @@ var get = function(res, options) {
   }).end();
 };
 
-function getMe(req, res) {
+function getFriendsLocation(req, res) {
 
-  console.log("---")
-  console.log(req.session.passport.user.accessToken)
-  console.log("---")
+  //console.log(req.session.passport.user.accessToken)
 
-  var options = getOptions("graph.facebook.com", 443, "GET", "/v1.0/me/friends?fields=location&limit=5000?access_token=" + req.session.passport.user.accessToken);
+  var options = getOptions("graph.facebook.com", 443, "GET", "/v1.0/me/friends?fields=location&limit=5000&access_token=" + req.session.passport.user.accessToken);
 
   return https.request(options, function(resp) {
     var data;
@@ -145,13 +155,28 @@ function getMe(req, res) {
 
       data = JSON.parse(data);
 
-      console.log(data)
-      //for (var i = 0; i< data.data.length; i++) {
-        //console.log(data.data[i].place)
-      //}
+      var locations = [];
 
-      //return res.render("index", {
-      //});
+      console.log(data.data.length)
+
+      for (var i = 0; i< data.data.length; i++) {
+
+        var location = data.data[i].location;
+
+        if (location) {
+          locations.push(location.name);
+        }
+
+      }
+
+      req.session.passport["locations"]= locations
+      req.session.save()
+
+      console.log(req.session.passport.user.locations)
+      console.log(locations.length)
+
+      return res.redirect("/visualization");
+
     });
   }).end();
 }
@@ -159,39 +184,66 @@ function getMe(req, res) {
 app.get("/", function(request, response) {
 
     if (request.session.passport.user) {
-      getMe(request, response)
+      getFriendsLocation(request, response);
+      return;
     }
 
   return response.render("index");
+
+});
+
+app.get("/get/coordinates", function(request, response) {
+
+  if (request.session.passport) {
+
+    var locations = request.session.passport.locations;
+
+    var geocode = function(data, callback) {
+
+      return getLatLng(function(e, data) {
+
+        var error;
+
+        error = JSON.parse(e);
+
+        if (data.rows.length === 0) {
+          return false;
+        } else if (error) {
+          return false;
+        } else {
+          var rows = JSON.stringify(data.rows);
+          callback(null, rows)
+        }
+      });
+
+    }
+
+    async.map(locations, geocode, function(err, results){
+      console.log(results)
+      // results is now an array of stats for each file
+    });
+
+  }
+
+
 });
 
 app.get("/visualization", function(request, response) {
 
+  if (!request.session.passport.user) {
+    return response.redirect("/");
+  }
+
   return response.render("page");
 });
 
-
-app.get("/callback", function(request, response) {
-  return response.redirect("/");
-});
-
-// GET /auth/facebook
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in Facebook authentication will involve
-//   redirecting the user to facebook.com.  After authorization, Facebook will
-//   redirect the user back to this application at /auth/facebook/callback
 app.get('/auth/facebook',
-  passport.authenticate('facebook', { scope: ['read_friendlists', 'read_stream', 'publish_actions'] }),
+  passport.authenticate('facebook', { scope: ['friends_hometown', 'read_friendlists', 'read_stream', 'publish_actions'] }),
   function(req, res){
     // The request will be redirected to Facebook for authentication, so this
     // function will not be called.
   });
 
-// GET /auth/facebook/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
 app.get('/auth/facebook/callback', 
   passport.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
