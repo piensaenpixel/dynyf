@@ -8,6 +8,7 @@ path       = require('path');
 crypto     = require('crypto');
 sanitize   = require('validator').sanitize;
 session    = require('express-session');
+async      = require('async');
 
 var morgan       = require('morgan')
 var bodyParser   = require('body-parser');
@@ -68,10 +69,11 @@ app.use(session({
   app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+console.log(process.env.CARTODB_USER)
 // CartoDB configuration
 cartoDB = new CartoDB({
-  user: Config.cartoDB_USER,
-  api_key: Config.cartoDB_API_KEY
+  user: process.env.CARTODB_USER,
+  api_key: process.env.CARTODB_API_KEY,
 });
 
 cartoDBLog = require("fs").createWriteStream(__dirname + "/responses.log");
@@ -93,6 +95,16 @@ extend = function(origin, add) {
   }
   return origin;
 };
+
+
+var getLatLng = function(callback) {
+  var query;
+  query = "SELECT ST_X(the_geom) AS longitude, ST_Y(the_geom) AS latitude FROM {table} LIMIT 1";
+  return cartoDB.query(query, {
+    table: "global_cities_points"
+  }, callback);
+};
+
 
 // ROUTES
 // ==========================================
@@ -160,9 +172,10 @@ function getFriendsLocation(req, res) {
       req.session.passport["locations"]= locations
       req.session.save()
 
-
       console.log(req.session.passport.user.locations)
       console.log(locations.length)
+
+      return res.redirect("/visualization");
 
     });
   }).end();
@@ -172,20 +185,53 @@ app.get("/", function(request, response) {
 
     if (request.session.passport.user) {
       getFriendsLocation(request, response);
-      return response.redirect("/visualization");
+      return;
     }
 
   return response.render("index");
+
+});
+
+app.get("/get/coordinates", function(request, response) {
+
+  if (request.session.passport) {
+
+    var locations = request.session.passport.locations;
+
+    var geocode = function(data, callback) {
+
+      return getLatLng(function(e, data) {
+
+        var error;
+
+        error = JSON.parse(e);
+
+        if (data.rows.length === 0) {
+          return false;
+        } else if (error) {
+          return false;
+        } else {
+          var rows = JSON.stringify(data.rows);
+          callback(null, rows)
+        }
+      });
+
+    }
+
+    async.map(locations, geocode, function(err, results){
+      console.log(results)
+      // results is now an array of stats for each file
+    });
+
+  }
+
+
 });
 
 app.get("/visualization", function(request, response) {
 
   if (!request.session.passport.user) {
     return response.redirect("/");
-  }
-
-  if (request.session.passport) {
-    console.log(request.session.passport);
   }
 
   return response.render("page");
