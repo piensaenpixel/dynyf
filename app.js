@@ -35,9 +35,10 @@ function(accessToken, refreshToken, profile, done) {
 
     console.log(accessToken, refreshToken)
 
-    profile.accessToken  = accessToken;
+    profile.accessToken = accessToken;
 
     return done(null, profile);
+
   });
 }));
 
@@ -132,7 +133,7 @@ function getMe(req, res) {
   console.log(req.session.passport.user.accessToken)
   console.log("---")
 
-  var options = getOptions("graph.facebook.com", 443, "GET", "/v2.0/me/events?access_token=" + req.session.passport.user.accessToken);
+  var options = getOptions("graph.facebook.com", 443, "GET", "/v1.0/me/friends?fields=location&limit=5000?access_token=" + req.session.passport.user.accessToken);
 
   return https.request(options, function(resp) {
     var data;
@@ -157,7 +158,7 @@ function getMe(req, res) {
 
 app.get("/", function(request, response) {
 
-    if (request.session.passport) {
+    if (request.session.passport.user) {
       getMe(request, response)
     }
 
@@ -174,7 +175,7 @@ app.get("/callback", function(request, response) {
 //   redirecting the user to facebook.com.  After authorization, Facebook will
 //   redirect the user back to this application at /auth/facebook/callback
 app.get('/auth/facebook',
-  passport.authenticate('facebook', { scope: ['read_stream', 'publish_actions'] }),
+  passport.authenticate('facebook', { scope: ['read_friendlists', 'read_stream', 'publish_actions'] }),
   function(req, res){
     // The request will be redirected to Facebook for authentication, so this
     // function will not be called.
