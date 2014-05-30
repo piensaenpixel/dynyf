@@ -10,10 +10,19 @@ html
     script(type='text/javascript', src='/js/build/production.js')
 
   body.visualization
-    header.header
-        .inner
-            .h-left
-              h1 DYNF 
-            .h-right
-              | hola
-    div#map.map
+  header.header
+      .inner
+          .h-left
+            h1 DYNF 
+          .h-right.header-info
+            .h-iblock.h-malign
+              | imagen
+            p.h-iblock.h-malign Hola, 
+              strong Emilio
+            p.h-iblock.h-malign
+              a(href='#') Logout
+
+  div#map.map.slide
+    |hola
+  div#map2.map2.slide
+    |hola

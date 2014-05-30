@@ -1,6 +1,13 @@
 @import "compass/css3";
 @import "reset";
 
+a {
+  text-decoration: none; 
+  &:hover { 
+    text-decoration: underline;
+  }
+}
+
 .h-tcenter {
   text-align: center;
 }
@@ -99,6 +106,9 @@
 
 .visualization {
   background: #000;
+  font-family: "Helvetica Neu", Helvetica;
+  font-size: 14px;
+  strong { font-weight: 800; }
 }
 .header {
   background: #384047;
@@ -106,11 +116,21 @@
   width: 100%;
   padding: 10px 0;
   z-index: 2;
+  h1 {
+    font: 14px 'chunkfive_exregular';
+    color: rgba(255, 255, 255, .8);
+  }
+  .header-info {
+    color: #fff; 
+    p { margin-left: 8px; }
+    a {
+      color: rgba(#fff, .2);
+      padding-left: 8px;
+      border-left: 1px solid rgba(#fff, .2)
+    }
+  }
 }
-.header h1 {
-  font: 14px 'chunkfive_exregular';
-  color: rgba(255, 255, 255, .8);
-}
+
 
 .inner {
   max-width: 1000px;
@@ -119,10 +139,6 @@
   overflow: hidden;
 }
 
-.map {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0; 
-  top: 0;
+.slide {
+  height: 100%;
 }
