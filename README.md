@@ -20,3 +20,9 @@ Friend's key data:
 - Places they've visited
 - Events they've assisted to
 
+Geolocalized data:
+- Hometown
+- Location
+- No info at check-ins
+- Events? No info
+- Locations? No info
