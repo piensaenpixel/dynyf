@@ -201,6 +201,7 @@ app.get("/get/coordinates", function(request, response) {
   if (request.session.passport) {
 
     var locations = request.session.passport.locations;
+    console.log(locations)
 
     geocoder.on("status", function(status){
       console.log(completed.current + '/' + completed.total);
