@@ -33,7 +33,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: "http://dynyf.herokuapp.com/auth/facebook/callback"
+  callbackURL: "http://localhost:5000/auth/facebook/callback"
 },
 function(accessToken, refreshToken, profile, done) {
   process.nextTick(function () {
@@ -147,7 +147,7 @@ function getFriendsLocation(req, res) {
 
   //console.log(req.session.passport.user.accessToken)
 
-  var options = getOptions("graph.facebook.com", 443, "GET", "/v1.0/me/friends?fields=location&limit=5000&access_token=" + req.session.passport.user.accessToken);
+  var options = getOptions("graph.facebook.com", 443, "GET", "/v1.0/me/friends?fields=hometown&limit=5000&access_token=" + req.session.passport.user.accessToken);
 
   return https.request(options, function(resp) {
     var data;
@@ -165,7 +165,7 @@ function getFriendsLocation(req, res) {
 
       for (var i = 0; i< data.data.length; i++) {
 
-        var location = data.data[i].location;
+        var location = data.data[i].hometown;
 
         if (location) {
           locations.push(location.name);
