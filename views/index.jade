@@ -9,4 +9,13 @@ html
     script(type='text/javascript', src='http://maps.googleapis.com/maps/api/js?sensor=false')
     script(type='text/javascript', src='/js/build/production.js')
   body
-    |Hi
+    div(class="home-inner h-valign h-tcenter")
+      div(class="h-iblock h-malign")
+        h1 Do you know your friends?
+        p(class="button")
+          a(href="/auth/facebook")
+            span(class="icon i-xs i-fb-white")
+            span(class="h-malign")
+            |Connect
+        p(class="disclaimer")
+          |DYNYF doesn't collect any personal information from our users. All of the data is only used for visualization purposes and none of it will be saved or sent to any third party for any reason.

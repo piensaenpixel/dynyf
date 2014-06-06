@@ -1,0 +1,45 @@
+doctype html
+html
+  head
+    title Do you know your friends?
+    meta(http-equiv='content-type', content='text/html; charset=UTF-8')
+    meta(name="viewport", content="width=device-width, maximum-scale=1.0")
+
+    link(rel='stylesheet', href='/css/style.css') 
+    script(type='text/javascript', src='http://maps.googleapis.com/maps/api/js?sensor=false')
+    script(type='text/javascript', src='/js/build/production.js')
+
+  body.visualization
+  header.header
+      .inner
+          .h-left
+            h1 DYNF 
+          .h-right.header-info
+            .h-iblock.h-malign
+              | imagen
+            p.h-iblock.h-malign Hola, 
+              strong Emilio
+            p.h-iblock.h-malign
+              a(href='#') Logout
+
+
+
+  ul.h-pa.navigation
+    li
+        a(href='#')
+          span Where do your friends live?
+      li
+        a(href='#')
+          span Where do your friends live?
+      li
+        a(href='#')
+          span Where do your friends live?
+      li
+        a(href='#')
+          span Where do your friends live?
+
+
+  div#map.map.slide
+    |hola
+  div#map2.map2.slide
+    |hola

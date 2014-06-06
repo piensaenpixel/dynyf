@@ -1,0 +1,92 @@
+.h-tcenter {
+  text-align: center;
+}
+.h-tleft {
+  text-align: left;
+}
+.h-tright {
+  text-align: right;
+}
+
+.h-left {
+  float: left;
+}
+.h-right {
+  float: right;
+}
+.h-malign { vertical-align: middle; }
+.h-talign { vertical-align: top; }
+.h-balign { vertical-align: bottom; }
+
+.h-iblock { display: inline-block; }
+
+
+.h-valign:before {
+  content:"";
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: -3px;
+  height: 100%;
+}
+
+
+.icon { 
+  background-image: url(../img/sprite.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+}
+  .i-xs { width: 12px; height: 12px; }
+
+  .i-fb-white { background-position: -8px -8px;}
+
+
+
+.home-inner {
+  background: url(../img/home.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+  .home-inner h1 {
+    font: 30px 'chunkfive_exregular';
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, .2);
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .home-inner .button {
+    display: inline-block;
+
+    margin-bottom: 30px;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, .2);
+    border-radius: 4px;
+
+
+  }
+    .home-inner .button a {
+      color: #fff;
+      font: 14px 'Helvetica Neu', Helvetica, Arial;
+      display: block;
+      padding: 14px 40px;
+      text-decoration: none;
+      background: #4c66a4;
+      -webkit-transition: background .2s;
+      transition: background .2s;
+      border-radius: 4px;
+    }
+    .home-inner .button a:hover {
+      background: #4e659b;
+    }
+    .disclaimer {
+      max-width: 450px; 
+      font: 13px 'Helvetica Neu', Helvetica, Arial;
+      color: rgba(255, 255, 255, .8);
+      text-align: center;
+      margin: 0px auto;
+    }
