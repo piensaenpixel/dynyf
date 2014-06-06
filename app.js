@@ -30,10 +30,15 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
+callbackURL = {
+  "development": "http://localhost:5000/auth/facebook/callback",
+  "production": "http://dynyf.herokuapp.com/auth/facebook/callback"
+}
+
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: "http://localhost:5000/auth/facebook/callback"
+  callbackURL: callbackURL[process.env]
 },
 function(accessToken, refreshToken, profile, done) {
   process.nextTick(function () {
