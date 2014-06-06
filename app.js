@@ -10,6 +10,10 @@ sanitize   = require('validator').sanitize;
 session    = require('express-session');
 async      = require('async');
 
+Geocoder = require("batch-geocoder"),
+geocoder = new Geocoder("./geocode-cache.csv");
+
+
 var morgan       = require('morgan')
 var bodyParser   = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -198,33 +202,19 @@ app.get("/get/coordinates", function(request, response) {
 
     var locations = request.session.passport.locations;
 
-    var geocode = function(data, callback) {
-
-      return getLatLng(function(e, data) {
-
-        var error;
-
-        error = JSON.parse(e);
-
-        if (data.rows.length === 0) {
-          return false;
-        } else if (error) {
-          return false;
-        } else {
-          var rows = JSON.stringify(data.rows);
-          callback(null, rows)
-        }
-      });
-
-    }
-
-    async.map(locations, geocode, function(err, results){
-      console.log(results)
-      // results is now an array of stats for each file
+    geocoder.on("status", function(status){
+      console.log(completed.current + '/' + completed.total);
     });
 
-  }
+    geocoder.on("finish", function(collection){
+      response.end(JSON.stringify(collection));
+    });
 
+    geocoder.find(locations);
+
+  } else {
+    response.end(null);
+  }
 
 });
 

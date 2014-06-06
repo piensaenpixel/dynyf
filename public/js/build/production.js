@@ -9267,10 +9267,38 @@ App = Backbone.View.extend({
 
     this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-    var overlay = new Marker(this.map, { lat: 32, lng: -20 }, true);
-    var overlay = new Marker(this.map, { lat: 12, lng: 23 }, true);
-    var overlay = new Marker(this.map, { lat: 22, lng: 10 }, true);
 
+    this._getCities();
+
+  },
+
+  _getCities: function() {
+
+    var self = this;
+
+    $.ajax({
+      url: "/get/coordinates",
+      statusCode: {
+        404: function(data) {
+          //console.log(data);
+        },
+        401: function(data) {
+          //console.log(data);
+        },
+        200: function(data) {
+          console.log(data)
+          var cities = JSON.parse(data);
+
+          _.each(cities, function(city) {
+
+            var overlay = new Marker(self.map, { lat: city.lat, lng: city.lng }, true);
+          
+          });
+        }
+      }
+    });
+  
+  
   },
 
   render: function() {
