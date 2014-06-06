@@ -207,6 +207,7 @@ app.get("/get/coordinates", function(request, response) {
     });
 
     geocoder.on("finish", function(collection){
+      console.log(collection)
       response.end(JSON.stringify(collection));
     });
 
